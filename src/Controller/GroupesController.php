@@ -12,12 +12,16 @@ class GroupesController extends AbstractController
 {
 
     /**
-     * @Route("/groupes", name="groupes")
+     * @Route("/", name="home")
      */
     public function index()
     {
+        $repository = $this -> getDoctrine() -> getRepository(Groupe::class);
+        $groupes = $repository -> findAll();
+
         return $this->render('groupes/index.html.twig', [
             'controller_name' => 'GroupesController',
+            'groupes' => $groupes
         ]);
     }
 
@@ -51,10 +55,9 @@ class GroupesController extends AbstractController
         if($form -> isSubmitted() && $form -> isValid()){
             $manager = $this -> getDoctrine() -> getManager();
             $manager -> persist($groupe);
-            $groupe -> setDate(new \DateTime('now'));
-            
-           // $groupe -> setUsersP($this -> getUser());
-            $manager -> flush(); //HELLO
+            $groupe -> setDate(new \DateTime('now')); 
+            $groupe -> setUsersP($this -> getUser());
+            $manager -> flush(); 
         }
         
         return $this -> render('groupes/groupe_form.html.twig', [

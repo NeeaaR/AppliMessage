@@ -15,10 +15,11 @@ class UserController extends AbstractController
 {
 
     /**
-     * @Route("/", name="home")
+     * @Route("/user", name="user")
      */
     public function index()
     {
+
         return $this->render('user/index.html.twig', [
             'controller_name' => 'UserController',
         ]);
@@ -29,7 +30,7 @@ class UserController extends AbstractController
      */
 
     public function connexion() {
-
+                
         return $this -> render('user/connexion.html.twig', []);
     }
 

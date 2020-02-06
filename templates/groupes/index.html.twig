@@ -3,5 +3,11 @@
 {% block title %}Espace groupe{% endblock %}
 
 {% block body %}
+<h2 class="text-center">Vos groupes</h2>
+{{dump(groupes)}}
 
+{% for groupe in groupes %}
+<h2>Name : {{groupe.name}}</h2>
+<h2>Date : {{groupe.date.date}}</h2>
+{% endfor %}
 {% endblock %}

@@ -9,6 +9,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 class GroupeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -17,14 +19,13 @@ class GroupeType extends AbstractType
             ->add('name')
             ->add('photo')
             ->add('date')
-            ->add('users', EntityType::class, [
-                'class' => User::class, 'choice_label' => 'username',
-            ])
-            ->add('users_p', EntityType::class,[
-                'class' => User::class, 'choice_label' => 'username',
-            ])
-            ->add('Ajouter',SubmitType::class)
-        ;
+            ->add('users', CollectionType::class, array(
+                'entry_type' => User::class, 
+                'choice_label' => 'username',
+                'multiple' => true,
+                'expanded' => true,
+            ))
+            ->add('Ajouter',SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
