@@ -6,8 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Groupe;
 use Symfony\Component\HttpFoundation\Request;
-
 use App\Form\GroupeType;
+
 class GroupesController extends AbstractController
 {
     /**
@@ -36,7 +36,7 @@ class GroupesController extends AbstractController
         ]);
     }
 
-        /**
+    /**
      * @Route("/groupes/add", name="groupes_add")
      */
     public function addgroupe(Request $request){
