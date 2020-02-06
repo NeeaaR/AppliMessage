@@ -52,7 +52,7 @@ class GroupesController extends AbstractController
             $manager -> persist($groupe);
             $groupe -> setDate(new \DateTime('now'));
             
-            $manager -> flush();
+            $manager -> flush(); //HELLO
         }
         
         return $this -> render('groupes/groupe_form.html.twig', [
