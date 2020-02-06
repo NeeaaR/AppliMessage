@@ -27,13 +27,13 @@ class GroupesController extends AbstractController
     public function groupe($id)
     {
         $repo = $this -> getDoctrine() -> getRepository(Groupe::class);
-        $post = $repo -> find($id);
+        $groupe = $repo -> find($id);
 
         $manager = $this -> getDoctrine() -> getManager(); //Même chose qu'au-dessus
-        $post = $manager -> find(Groupe::class, $id);
+        $groupe = $manager -> find(Groupe::class, $id);
 
         return $this->render('groupes/show.html.twig', [
-            'groupe' => $post
+            'groupe' => $groupe
         ]);
     }
 
@@ -53,6 +53,7 @@ class GroupesController extends AbstractController
             $manager -> persist($groupe);
             $groupe -> setDate(new \DateTime('now'));
             
+           // $groupe -> setUsersP($this -> getUser());
             $manager -> flush(); //HELLO
         }
         
