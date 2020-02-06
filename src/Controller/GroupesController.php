@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Form\GroupeType;
 class GroupesController extends AbstractController
 {
+
     /**
      * @Route("/groupes", name="groupes")
      */
