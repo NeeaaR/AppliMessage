@@ -19,7 +19,7 @@ class UserType extends AbstractType
             ->add('password')
             // ->add('photo')
             // ->add('groupes')
-            ->add('Se connecter',SubmitType::class)
+            ->add('Sign Up',SubmitType::class)
         ;
     }
 

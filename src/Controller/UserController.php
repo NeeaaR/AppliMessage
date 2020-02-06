@@ -22,19 +22,19 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/inscription", name="inscription")
+     * @Route("/connexion", name="connexion")
      */
 
-    public function inscription() {
+    public function connexion() {
 
-        return $this -> render('user/inscription.html.twig', []);
+        return $this -> render('user/connexion.html.twig', []);
     }
 
     /**
-    * @Route("/connexion", name="connexion")
+    * @Route("/inscription", name="inscription")
     */
 
-    public function connexion(Request $request) {
+    public function inscription(Request $request) {
 
         $user = new User;
 
@@ -49,11 +49,11 @@ class UserController extends AbstractController
             $manager -> flush(); 
         }
 
-       return $this -> render('user/connexion.html.twig', [
+       return $this -> render('user/inscription.html.twig', [
             'userForm' => $form -> createView()
        ]);
 
-       return $this -> redirectToRoute('index');
+       return $this -> redirectToRoute('home');
    }
 
     /**
