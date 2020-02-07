@@ -64,6 +64,11 @@ class UserController extends AbstractController
             $password = $user -> getPassword();
             $newPassword = $encoder -> encodePassword($user, $password);
             $user -> setPassword($newPassword);
+            if($user->getFile()) {
+                $user -> removeFile();
+                $user -> fileUpload();
+            }
+            
             $manager -> flush();
             return $this -> redirectToRoute('login');
         }
