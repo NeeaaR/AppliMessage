@@ -57,8 +57,12 @@ class GroupesController extends AbstractController
             $manager -> persist($groupe);
             $groupe -> setDate(new \DateTime('now')); 
             $groupe -> setUsersP($this -> getUser());
-            $manager -> flush(); 
-            return $this -> redirectToRoute('login');
+            foreach($groupe -> getUsers() as $userg){
+                
+                $userg -> addGroupe($groupe);
+            }
+           $manager -> flush(); 
+           return $this -> redirectToRoute('home'); 
         }
         
         return $this -> render('groupes/groupe_form.html.twig', [
