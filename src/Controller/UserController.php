@@ -15,52 +15,6 @@ class UserController extends AbstractController
 {
 
     /**
-     * @Route("/user", name="user")
-     */
-    public function index()
-    {
-
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    }
-
-    /**
-     * @Route("/connexion", name="connexion")
-     */
-
-    public function connexion() {
-                
-        return $this -> render('user/connexion.html.twig', []);
-    }
-
-    /**
-    * @Route("/inscription", name="inscription")
-    */
-
-    public function inscription(Request $request) {
-
-        $user = new User;
-
-        $form = $this -> createForm(UserType::class, $user);
-
-        $form -> handleRequest($request);
-
-        if($form -> isSubmitted() && $form -> isValid()){
-            $manager = $this -> getDoctrine() -> getManager();
-            $manager -> persist($user);
-            
-            $manager -> flush(); 
-        }
-
-       return $this -> render('user/inscription.html.twig', [
-            'userForm' => $form -> createView()
-       ]);
-
-       return $this -> redirectToRoute('home');
-   }
-
-    /**
     * @Route("/profil", name="profil")
     */
 
@@ -104,25 +58,27 @@ class UserController extends AbstractController
     * @Route("/register", name="register")
     */
 
-    public function register(UserPasswordEncoderInterface $encode){
+    public function register(UserPasswordEncoderInterface $encoder, Request $request){
         $user = new User;
 
-        $form = $this -> createForm(UserTyê::class, $user);
-        $form -> handleRequestion($request);
+        $form = $this -> createForm(UserType::class, $user);
+        $form -> handleRequest($request);
 
         if($form -> isSubmitted() && $form -> isValid()){
         
             $manager = $this -> getDoctrine() -> getManager();
 
             $manager -> persist($user);
-            $user -> setRole('ROLE_USER');
+            $user -> setRoles('ROLE_USER');
             $password = $user -> getPassword();
             $newPassword = $encoder -> encodePassword($user, $password);
             $user -> setPassword($newPassword);
             $manager -> flush();
         }
 
-        return $this -> render();
+        return $this -> render('user/register.html.twig', [
+            'registerForm' => $form -> createView()
+        ]);
     }
 
     /**
@@ -130,7 +86,7 @@ class UserController extends AbstractController
     */
 
     public function logout(){
-
+        
     }
     
     /**
