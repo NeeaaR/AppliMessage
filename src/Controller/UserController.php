@@ -24,15 +24,7 @@ class UserController extends AbstractController
 
         //2: Afficher les données
 
-        return $this -> render('user/profil.html.twig', []);
-    }
-
-    /**
-    * @Route("/deconnexion", name="deconnexion")
-    */
-
-    public function deconnexion() {
-        return $this -> render('user/deconnexion.html.twig', []);
+        return $this -> render('user/index.html.twig', []);
     }
 
     /**
@@ -74,6 +66,7 @@ class UserController extends AbstractController
             $newPassword = $encoder -> encodePassword($user, $password);
             $user -> setPassword($newPassword);
             $manager -> flush();
+            return $this -> redirectToRoute('login');
         }
 
         return $this -> render('user/register.html.twig', [
@@ -86,7 +79,7 @@ class UserController extends AbstractController
     */
 
     public function logout(){
-        
+
     }
     
     /**

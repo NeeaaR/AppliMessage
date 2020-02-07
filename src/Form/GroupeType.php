@@ -17,10 +17,10 @@ class GroupeType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('photo')
+            // ->add('photo')
             ->add('date')
-            ->add('users', CollectionType::class, array(
-                'entry_type' => User::class, 
+            ->add('users', EntityType::class, array(
+                'class' => User::class, 
                 'choice_label' => 'username',
                 'multiple' => true,
                 'expanded' => true,

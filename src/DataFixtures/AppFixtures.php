@@ -16,7 +16,7 @@ class AppFixtures extends Fixture
         // $product = new Product();
         // $manager->persist($product);
 
-        for($i = 1; $i < 2; $i++){
+        for($i = 1; $i < 5; $i++){
             $user = new User;
             $user -> setUsername('user' . $i);
             $user -> setPassword('123456');
@@ -30,6 +30,7 @@ class AppFixtures extends Fixture
             $groupe = new Groupe;
             $groupe -> setName('groupe' . $j);
             $groupe -> setDate(new \DateTime('now'));
+            $group -> setUsersP(1);
             $manager -> persist($groupe);
         }
 
