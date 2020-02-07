@@ -35,13 +35,11 @@ class AppFixtures extends Fixture
 
         $manager -> flush();
 
-        $manager -> flush();
-
         for($k = 1; $k < 2; $k++){
             $message = new Message;
             $message -> setContent('message' . $k);
             $message -> setState('3');
-            $message -> setDate_time(new \DateTime('now'));
+            $message -> setDateTime(new \DateTime('now'));
             $manager -> persist($message);
         }
 
