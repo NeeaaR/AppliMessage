@@ -69,7 +69,7 @@ class MessagesController extends AbstractController
         }
 
         // afficher la vue
-        return $this->render('message.html.twig', ['messageForm' => $form -> createView()]);
+        return $this->render('messages/message.html.twig', ['messageForm' => $form -> createView()]);
     }
 
 }
