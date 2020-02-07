@@ -37,4 +37,36 @@ class MessagesController extends AbstractController
         return $this->render('user/show.html.twig', ['user' => $user]);
     }
 
+    /**
+     * @Route("/message", name="messagesToGroupe")
+     */
+
+    public function sendMessage(Request $request)
+    {
+        $message = new Message;
+
+        //formulaire
+        $form = $this -> createForm(MessageType::class, $message);
+
+        //lie definitivement les infos saiies dans le formulaire à notre objet $post. Récupere le $_POST
+        $form -> handleRequest($request);
+
+        if($form -> isSubmitted()&& $form ->isValid()){
+
+            $manager = $this -> getDoctrine() -> getManager();
+            $message -> setUser('1');
+            $message -> setContent("YES!");
+            $message -> setRegisterDate(new \DateTime('now'));
+            $message -> setState('3');
+            $manager -> persist($message);
+
+            $manager -> flush();
+            $this -> addFlash('success', 'Le message ' . $message -> getID() . 'a bien été envoyé');
+    
+        }
+
+        // afficher la vue
+        return $this->render('message.html.twig', ['messageForm' => $form -> createView()]);
+    }
+
 }
