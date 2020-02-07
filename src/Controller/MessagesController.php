@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Message;
+use App\Form\MessageType;
+use Symfony\Component\HttpFoundation\Request;
 
 class MessagesController extends AbstractController
 {    
