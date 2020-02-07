@@ -7,6 +7,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\GroupeType;
 use App\Entity\Groupe;
+use App\Entity\Message;
+use App\Form\MessageType;
 
 class GroupesController extends AbstractController
 {
@@ -18,6 +20,9 @@ class GroupesController extends AbstractController
     {
         $repository = $this -> getDoctrine() -> getRepository(Groupe::class);
         $groupes = $repository -> findBy(['users_p' => $this -> getUser()]);
+        $groupe = $repository -> findAll();
+
+        dd($groupe);
 
         return $this->render('groupes/index.html.twig', [
             'controller_name' => 'GroupesController',
@@ -28,7 +33,7 @@ class GroupesController extends AbstractController
     /**
      * @Route("/groupe/{id}", name="groupes_display")
      */
-    public function groupe($id)
+    public function groupe($id,Request $request)
     {
         $repo = $this -> getDoctrine() -> getRepository(Groupe::class);
         $groupe = $repo -> find($id);
@@ -36,8 +41,32 @@ class GroupesController extends AbstractController
         $manager = $this -> getDoctrine() -> getManager(); //Même chose qu'au-dessus
         $groupe = $manager -> find(Groupe::class, $id);
 
+        $message = new Message;
+        $groupe_m = new Groupe;
+
+
+        $form = $this -> createForm(MessageType::class, $message);
+
+        //lie definitivement les infos saiies dans le formulaire à notre objet $post. Récupere le $_POST
+        $form -> handleRequest($request);
+
+        if($form -> isSubmitted()&& $form ->isValid()){
+
+            $manager = $this -> getDoctrine() -> getManager();
+
+            $message -> setUser($this -> getUser());
+            $message -> setDateTime(new \DateTime('now'));
+            $groupe -> addMessage($message);
+            $message -> setState(0);
+            $manager -> persist($message); 
+            $manager -> flush();
+            $this -> addFlash('success', 'Le message ' . $message -> getID() . 'a bien été envoyé');   
+        }
+
+
         return $this->render('groupes/show.html.twig', [
-            'groupe' => $groupe
+            'groupe' => $groupe,
+            'MessageForm' => $form -> createView()
         ]);
     }
 

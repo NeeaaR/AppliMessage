@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Espace groupe{% endblock %}
+{% block title %}Espace groupe {% if app.user is not null %} de {{app.user.username}} {% endif %}{% endblock %}
 
 {% block body %}
 <h2 class="text-center">Vos groupes</h2>

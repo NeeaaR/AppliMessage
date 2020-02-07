@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Message;
+use App\Entity\Groupe;
 use App\Form\MessageType;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -47,7 +48,6 @@ class MessagesController extends AbstractController
     public function sendMessage(Request $request)
     {
         $message = new Message;
-
         //formulaire
         $form = $this -> createForm(MessageType::class, $message);
 
@@ -61,7 +61,7 @@ class MessagesController extends AbstractController
             $message -> setUser($this -> getUser());
             $message -> setDateTime(new \DateTime('now'));
             $manager -> persist($message);
-
+            
             $manager -> flush();
             $this -> addFlash('success', 'Le message ' . $message -> getID() . 'a bien été envoyé');
     
