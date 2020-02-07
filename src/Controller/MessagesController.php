@@ -57,10 +57,10 @@ class MessagesController extends AbstractController
         if($form -> isSubmitted()&& $form ->isValid()){
 
             $manager = $this -> getDoctrine() -> getManager();
-            $message -> setUser('1');
-            $message -> setContent("YES!");
+            $message -> setUser($this -> getUser());
+            $message -> setContent("");
             $message -> setRegisterDate(new \DateTime('now'));
-            $message -> setState('3');
+            $message -> setState('');
             $manager -> persist($message);
 
             $manager -> flush();
@@ -69,7 +69,7 @@ class MessagesController extends AbstractController
         }
 
         // afficher la vue
-        return $this->render('messages/message.html.twig', ['messageForm' => $form -> createView()]);
+        return $this->render('messages/messagetest.html.twig', ['messageForm' => $form -> createView()]);
     }
 
 }
