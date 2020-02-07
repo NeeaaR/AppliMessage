@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Groupe;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\GroupeType;
+use App\Entity\Groupe;
 
 class GroupesController extends AbstractController
 {
@@ -17,7 +17,7 @@ class GroupesController extends AbstractController
     public function index()
     {
         $repository = $this -> getDoctrine() -> getRepository(Groupe::class);
-        $groupes = $repository -> findAll();
+        $groupes = $repository -> findBy(['users_p' => $this -> getUser()]);
 
         return $this->render('groupes/index.html.twig', [
             'controller_name' => 'GroupesController',
