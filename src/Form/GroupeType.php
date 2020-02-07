@@ -18,7 +18,6 @@ class GroupeType extends AbstractType
         $builder
             ->add('name')
             // ->add('photo')
-            ->add('date')
             ->add('users', EntityType::class, array(
                 'class' => User::class, 
                 'choice_label' => 'username',

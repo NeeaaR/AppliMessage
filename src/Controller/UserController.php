@@ -21,7 +21,6 @@ class UserController extends AbstractController
     public function profil() {
         //1: Récupérer les données dans la BDD (username, email)
 
-
         //2: Afficher les données
 
         return $this -> render('user/index.html.twig', []);
