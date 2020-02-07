@@ -39,7 +39,7 @@ class UserController extends AbstractController
             
             $this -> addFlash('errors', 'Erreur d\'identifiant !');
         }
-
+        
         return $this -> render('user/login.html.twig', [
             'lastUsername' => $lastUsername
         ]);

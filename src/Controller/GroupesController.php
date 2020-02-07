@@ -18,11 +18,18 @@ class GroupesController extends AbstractController
      */
     public function index()
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        // authenticated REMEMBERED, FULLY will imply REMEMBERED (NON anonymous)
+            
+        }
+        else{
+            return $this -> redirectToRoute('login');
+        }
+
         $repository = $this -> getDoctrine() -> getRepository(Groupe::class);
         $groupes = $repository -> findBy(['users_p' => $this -> getUser()]);
         $groupe = $repository -> findAll();
-
-        dd($groupe);
 
         return $this->render('groupes/index.html.twig', [
             'controller_name' => 'GroupesController',
@@ -91,7 +98,7 @@ class GroupesController extends AbstractController
                 $userg -> addGroupe($groupe);
             }
            $manager -> flush(); 
-           return $this -> redirectToRoute('home'); 
+           return $this -> redirectToRoute('groupes'); 
         }
         
         return $this -> render('groupes/groupe_form.html.twig', [
