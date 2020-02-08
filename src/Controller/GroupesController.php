@@ -25,13 +25,18 @@ class GroupesController extends AbstractController
             return $this -> redirectToRoute('login');
         }
 
+
         $repository = $this -> getDoctrine() -> getRepository(User::class);
-        $groupes = $repository -> findOneBy(['id' => $this -> getUser()]);
-        $groupe = $repository -> findAll();
+        $repo = $this -> getDoctrine() -> getRepository(Groupe::class);
+        
+        $users = $repository -> findOneBy(['id' => $this -> getUser()]);
+
+        $groupes = $repo -> findAll();
 
         return $this->render('groupes/index.html.twig', [
             'controller_name' => 'GroupesController',
-            'user' => $groupes
+            'user' => $users,
+            'groupes' => $groupes
         ]);
     }
 
@@ -40,15 +45,10 @@ class GroupesController extends AbstractController
      */
     public function groupe($id,Request $request)
     {
-        $repo = $this -> getDoctrine() -> getRepository(Groupe::class);
-        $groupe = $repo -> find($id);
-
         $manager = $this -> getDoctrine() -> getManager(); //Même chose qu'au-dessus
         $groupe = $manager -> find(Groupe::class, $id);
 
         $message = new Message;
-        $groupe_m = new Groupe;
-
 
         $form = $this -> createForm(MessageType::class, $message);
 

@@ -22,6 +22,7 @@
         {% else %}
             <p>Utilisateur : {{ message.user.username }}</p>
             <p>Contenu : {{ message.content }}</p>
+            <div>Envoyé le {{ message.dateTime.date|date('d/m/Y à H:i') }}</div>
         {% endif %}
 
     {%  endfor %}
