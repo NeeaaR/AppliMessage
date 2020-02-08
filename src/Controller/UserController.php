@@ -15,15 +15,49 @@ class UserController extends AbstractController
 {
 
     /**
-    * @Route("/profil", name="profil")
+    * @Route("/profile/{id}", name="profile")
     */
-
-    public function profil() {
-        //1: Récupérer les données dans la BDD (username, email)
+    public function profile($id) {
+        //1: Récupérer les données dans la BDD
+        $repo = $this -> getDoctrine() -> getRepository(User::class);
+        $user = $repo -> find($id);
 
         //2: Afficher les données
+        return $this -> render("user/profile.html.twig", array(
+            'user' => $user
+        ));
+    }
 
-        return $this -> render('user/index.html.twig', []);
+    /**
+    * @Route("/profile/update/{id}", name="profile_update")
+    */
+
+    public function profileUpdate($id, Request $request) {
+        $manager = $this -> getDoctrine() -> getManager();
+        $user = $manager -> find(User::class, $id);
+
+
+        $form = $this->createForm(UserType::class, $user);
+        //L'objet hydrate le formulaire
+        
+        $form -> handleRequest($request);
+
+        if($form -> isSubmitted() && $form -> isValid()) {
+            $manager -> persist($user);
+            if($user->getFile()) {
+                //Si l'image est modifiée
+                $user -> removeFile();
+                $user -> fileUpload();
+            }
+
+            $manager -> flush();
+
+            $this -> addFlash('success', 'Le user a été modifiée avec succes');
+        }
+
+        return $this -> render('user/profile_update.html.twig', [
+            'userForm' => $form ->createView()
+        ]);
     }
 
     /**
