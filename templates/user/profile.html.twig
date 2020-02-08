@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+<h1>Profil</h1>
+<h3 class="mt-4">{{ user.id }}</h3>
+<h3 class="mt-4">{{ user.username }}</h3>
+<h3 class="mt-4">{{ user.email }}</h3>
+<img class="img-fluid rounded" src="{{ asset('/photos/' ~ user.photo) }}" alt="" width="20%">
+
+
+{% endblock %}
