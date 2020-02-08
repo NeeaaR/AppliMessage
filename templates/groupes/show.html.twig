@@ -5,6 +5,20 @@
 {% block content %}
 
 {{ dump(groupe) }}
+<h1 class="text-center">Info groupe</h1>
+<h3>Groupe ID : {{groupe.id}}</h3>
+<h3>Groupe name : {{groupe.name}}</h3>
+<h3>{{groupe.photo}}</h3>
+
+<h1 class="text-center">Messagerie</h1>
+
+    {% for message in groupe.messages %}
+        <p>Utilisateur : {{ message.user.username }}</p>
+        <p>Contenu : {{ message.content }}</p>
+        <p>{{ message.user.photo }}</p>
+    {%  endfor %}
+
+{{ form(MessageForm) }}
 
 <!-- Test : localhost:8000/post/ -->
 

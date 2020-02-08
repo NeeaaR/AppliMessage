@@ -15,10 +15,10 @@ class MessageType extends AbstractType
         $builder
             ->add('content')
             //->add('dateTime')
-            ->add('state')
+            // ->add('state')
             //->add('user')
             //->add('groupe')
-            ->add('Envoyer Message',SubmitType::class)
+            ->add('Envoyer',SubmitType::class)
         ;
     }
 

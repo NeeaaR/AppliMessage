@@ -30,7 +30,6 @@ class AppFixtures extends Fixture
             $groupe = new Groupe;
             $groupe -> setName('groupe' . $j);
             $groupe -> setDate(new \DateTime('now'));
-            $group -> setUsersP(1);
             $manager -> persist($groupe);
         }
 

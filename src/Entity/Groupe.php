@@ -103,6 +103,8 @@ class Groupe
         return $this->users;
     }
 
+    
+
     public function addUser(User $user): self
     {
         if (!$this->users->contains($user)) {
