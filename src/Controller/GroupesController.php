@@ -19,10 +19,7 @@ class GroupesController extends AbstractController
     public function index()
     {
         $securityContext = $this->container->get('security.authorization_checker');
-        if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-        // authenticated REMEMBERED, FULLY will imply REMEMBERED (NON anonymous)
-            
-        }
+        if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {}
         else{
             return $this -> redirectToRoute('login');
         }
