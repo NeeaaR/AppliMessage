@@ -6,18 +6,19 @@
 <h2 class="text-center">Vos groupes</h2>
 <a href="{{path('groupes_add')}}" class="btn btn-primary">Créer un groupe</a>
 
-{% if groupes|length > 0 %}
+{% if user|length > 0 %}
 
-{% for groupe in groupes %}
+{% for groupe in user.groupes %}
 <h2>Name : {{groupe.name}}</h2>
 <h2>Date : {{groupe.date.date}}</h2>
-<a href="{{path('groupes_display',{'id':groupe.id})}}" class="btn btn-danger">Accéder au groupe</a>
-
+<a href="{{path('groupes_display',{'id':groupe.id})}}" class="btn btn-danger">
+Accéder au groupe
+</a>
 {% endfor %}
 
 {% else %}
 
-<h3>Vous n'avez pas encore créé de groupe</h3
+<h3>Vous n'avez pas encore créé de groupe / ou été invité à en rejoindre</h3
 
 {% endif %}
 

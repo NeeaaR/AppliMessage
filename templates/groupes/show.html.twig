@@ -5,6 +5,7 @@
 {% block content %}
 
 {{ dump(groupe) }}
+
 <h1 class="text-center">Info groupe</h1>
 <h3>Groupe ID : {{groupe.id}}</h3>
 <h3>Groupe name : {{groupe.name}}</h3>
@@ -13,9 +14,16 @@
 <h1 class="text-center">Messagerie</h1>
 
     {% for message in groupe.messages %}
-        <p>Utilisateur : {{ message.user.username }}</p>
-        <p>Contenu : {{ message.content }}</p>
-        <p>{{ message.user.photo }}</p>
+        {% if message.user.id == app.user.id%}
+            <p class="text-right">Utilisateur : {{ message.user.username }}</p>
+            <p class="text-right">Contenu : {{ message.content }}</p>
+            <div class="text-right">Envoyé le {{ message.dateTime.date|date('d/m/Y à H:i') }}</div>     
+
+        {% else %}
+            <p>Utilisateur : {{ message.user.username }}</p>
+            <p>Contenu : {{ message.content }}</p>
+        {% endif %}
+
     {%  endfor %}
 
 {{ form(MessageForm) }}

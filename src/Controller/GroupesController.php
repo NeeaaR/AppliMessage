@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Form\GroupeType;
 use App\Entity\Groupe;
 use App\Entity\Message;
+use App\Entity\User;
 use App\Form\MessageType;
 
 class GroupesController extends AbstractController
@@ -24,13 +25,13 @@ class GroupesController extends AbstractController
             return $this -> redirectToRoute('login');
         }
 
-        $repository = $this -> getDoctrine() -> getRepository(Groupe::class);
-        $groupes = $repository -> findBy(['users_p' => $this -> getUser()]);
+        $repository = $this -> getDoctrine() -> getRepository(User::class);
+        $groupes = $repository -> findOneBy(['id' => $this -> getUser()]);
         $groupe = $repository -> findAll();
 
         return $this->render('groupes/index.html.twig', [
             'controller_name' => 'GroupesController',
-            'groupes' => $groupes
+            'user' => $groupes
         ]);
     }
 
@@ -64,9 +65,8 @@ class GroupesController extends AbstractController
             $message -> setState(0);
             $manager -> persist($message); 
             $manager -> flush();
-            $this -> addFlash('success', 'Le message ' . $message -> getID() . 'a bien été envoyé');   
+            $this -> addFlash('success', 'Le message ' . $message -> getID() . ' a bien été envoyé');   
         }
-
 
         return $this->render('groupes/show.html.twig', [
             'groupe' => $groupe,
@@ -94,8 +94,9 @@ class GroupesController extends AbstractController
                 
                 $userg -> addGroupe($groupe);
             }
+           $groupe -> addUser($this -> getUser()); 
            $manager -> flush(); 
-           return $this -> redirectToRoute('groupes'); 
+           return $this -> redirectToRoute('home'); 
         }
         
         return $this -> render('groupes/groupe_form.html.twig', [
