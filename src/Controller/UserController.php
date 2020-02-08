@@ -29,36 +29,34 @@ class UserController extends AbstractController
     }
 
     /**
-    * @Route("/profile/update/{id}", name="profileUpdate")
+    * @Route("/profile/update/{id}", name="profile_update")
     */
+
     public function profileUpdate($id, Request $request) {
         $manager = $this -> getDoctrine() -> getManager();
-        //2 : Récupérer l'objet
-        $post = $manager -> find(User::class, $id);
-        $form = $this -> createForm(UserType::class, $post);
-        // Notre objet hydrate le formulaire
+        $user = $manager -> find(User::class, $id);
 
+
+        $form = $this->createForm(UserType::class, $user);
+        //L'objet hydrate le formulaire
+        
         $form -> handleRequest($request);
 
-        if($form -> isSubmitted() && $form -> isValid()){
+        if($form -> isSubmitted() && $form -> isValid()) {
+            $manager -> persist($user);
+            if($user->getFile()) {
+                //Si l'image est modifiée
+                $user -> removeFile();
+                $user -> fileUpload();
+            }
 
-          //3 : Modifier (formulaire)
-          $manager -> persist($user);
+            $manager -> flush();
 
-          if($user  -> getFile()){
-              $user -> removeFile();
-              $user -> uploadFile();
-          }
-
-          $manager -> flush();
-          //4 : Message
-          $this -> addFlash('success', 'Votre profil a bien été modifié !');
-          return $this -> redirectToRoute('profile');
+            $this -> addFlash('success', 'Le user a été modifiée avec succes');
         }
 
-        //5 : Vue
-        return $this -> render('user/profile.html.twig', [
-            'userForm' => $form -> createView()
+        return $this -> render('user/profile_update.html.twig', [
+            'userForm' => $form ->createView()
         ]);
     }
 
