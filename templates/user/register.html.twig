@@ -7,24 +7,27 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
+<div id="body">
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
 
-<div class="wrapper fadeInDown">
-  <div id="formContent">
-    <!-- Tabs Titles -->
+      <!-- Icon -->
+      
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="https://image.flaticon.com/icons/svg/747/747968.svg" style="width:18%; margin-top:3%; margin-block-end:3%;" id="icon" alt="Connexion" />
+      </div>
 
-    <!-- Icon -->
-    <div class="fadeIn first">
-      <img src="" id="icon" alt="Inscription" />
-    </div> 
+      <!-- Register Form -->
+    
+      {{ form(registerForm) }}
 
-    <!-- Register Form -->
-  
-    {{ form(registerForm) }}
+      <div id="formFooter">
+        <a href="{{path('login')}}">Vous avez déjà un compte ?</a>
+      </div>
 
-    <div id="formFooter">
-      <a href="{{path('login')}}">Vous avez déjà un compte ?</a>
     </div>
-
   </div>
 </div>
 
@@ -32,13 +35,10 @@
 
 /* BASIC */
 
-html {
-  background-color: #56baed;
-}
-
-body {
+#body {
   font-family: "Poppins", sans-serif;
   height: 100vh;
+   background-color: #56baed;
 }
 
 a {
@@ -55,7 +55,6 @@ h2 {
   text-transform: uppercase;
   display:inline-block;
   margin: 40px 8px 10px 8px; 
-  color: #cccccc;
 }
 
 
@@ -156,7 +155,7 @@ input[type=text], input[type=email], input[type=password], input[type=file] {
   display: inline-block;
   font-size: 16px;
   margin: 5px;
-  width: 85%;
+  width: 90%;
   border: 2px solid #f6f6f6;
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;

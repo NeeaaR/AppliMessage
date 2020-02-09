@@ -7,27 +7,29 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
-<div class="wrapper fadeInDown">
-  <div id="formContent">
-    <!-- Tabs Titles -->
+<div id="body">
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
 
-    <!-- Icon -->
-    <div class="fadeIn first">
-      <img src="" id="icon" alt="Connexion" />
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="https://image.flaticon.com/icons/svg/1000/1000946.svg" style="width:18%; margin-top:3%; margin-block-end:3%;" id="icon" alt="Connexion" />
+      </div>
+
+      <!-- Login Form -->
+      <form method="post" action="{{ path('login_check') }}">
+        <input type="text" id="login" class="fadeIn second" name="_username" placeholder="Pseudo" value="{{ lastUsername }}">
+        <input type="password" id="password" class="fadeIn third" name="_password" placeholder="Mot de passe">
+        <input type="submit" class="fadeIn fourth" value="Se connecter">
+      </form>
+
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a href="{{path('register')}}">Vous n'avez pas de compte ?</a>
+      </div>
+
     </div>
-
-    <!-- Login Form -->
-    <form method="post" action="{{ path('login_check') }}">
-      <input type="text" id="login" class="fadeIn second" name="_username" placeholder="Pseudo" value="{{ lastUsername }}">
-      <input type="password" id="password" class="fadeIn third" name="_password" placeholder="Mot de passe">
-      <input type="submit" class="fadeIn fourth" value="Se connecter">
-    </form>
-
-    <!-- Remind Passowrd -->
-    <div id="formFooter">
-      <a href="{{path('register')}}">Vous n'avez pas de compte ?</a>
-    </div>
-
   </div>
 </div>
 
@@ -35,11 +37,8 @@
 
 /* BASIC */
 
-html {
+#body {
   background-color: #56baed;
-}
-
-body {
   font-family: "Poppins", sans-serif;
   height: 100vh;
 }
