@@ -17,7 +17,9 @@ Ne pas oublier de modifier l'url de la base de données dans .env !
 # Membres du groupe :
 
 > Alexis Morin
+
 > Yohan Stoeckle
+
 > Eléa Carton
 
 # Nos remarques : 
