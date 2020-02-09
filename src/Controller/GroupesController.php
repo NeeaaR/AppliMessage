@@ -65,7 +65,6 @@ class GroupesController extends AbstractController
             $message -> setState(0);
             $manager -> persist($message); 
             $manager -> flush();
-            $this -> addFlash('success', 'Le message ' . $message -> getID() . ' a bien été envoyé');   
         }
 
         $repository = $this -> getDoctrine() -> getRepository(User::class);
