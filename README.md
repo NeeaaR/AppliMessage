@@ -27,5 +27,5 @@ Fixtures fonctionnelles
 Problèmes rencontrés :
 
 - l’upload de l’image pour le groupe fonctionne mais une erreur s’affiche lors de la création d’un groupe
-- Les fixtures sont 
+- Les fixtures sont à peu près fonctionnel 
 - Le statut des utilisateurs n’a pas pu etre fait
