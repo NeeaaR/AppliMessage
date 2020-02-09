@@ -48,7 +48,7 @@
 											<span>{{groupe.name}}</span>
 											{% for message in groupe.messages %}
 												{% if loop.last %}
-													<p>{{message.user.username}} : {{message.content}}</p>
+													<p>{{message.user.username}} : {{message.content}} <br> envoyé le {{ message.dateTime.date|date('d/m/Y à H:i') }} </p>
 												{% endif %}
 											{% endfor %}
 										</div>

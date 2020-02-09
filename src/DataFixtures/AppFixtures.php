@@ -27,27 +27,24 @@ class AppFixtures extends Fixture
         // $product = new Product();
         // $manager->persist($product);
 
-            for($i = 1; $i <= 3; $i++){
+            for($i = 1; $i <= 4; $i++){
+                $groupe = new Groupe;
+                $groupe -> setName('groupe ' . $i);
+                $groupe -> setDate(new \DateTime('now'));
+                $groupe -> setPhoto('default'.$i.'.jpg');
+                $manager -> persist($groupe);
+                
+            }
+                for($j = 1;$j <=3; $j++){
                 $user = new User;
-                $user -> setUsername('user' . $i);
+                $user -> setUsername('user' . $j);
                 $password = $this->encoder->encodePassword($user, 'Ynov2020');
                 $user -> setPassword($password);
-                $user -> setPhoto('default'.$i.'.jpg');
-                $user -> setEmail('user' . $i . '@ynov.com' );
+                $user -> setPhoto('default'.$j.'.jpg');
+                $user -> addGroupe($groupe);
+                $user -> setEmail('user' . $j . '@ynov.com' );
                 $manager -> persist($user);
-
-                $manager -> flush();
-
-                for($j = 1;$j <=4; $j++){
-                $groupe = new Groupe;
-                $groupe -> setName('groupe' . $j);
-                $groupe -> setDate(new \DateTime('now'));
-                $groupe -> setPhoto('default'.$j.'.jpg');
-                $groupe -> setUsersP($user);
-                $groupe -> addUser($user);
-                $manager -> persist($groupe);
-                $manager -> flush();
-
+                
                 $message = new Message;
                 $message -> setContent('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu scelerisque metus, ut egestas ligula. Phasellus vitae varius mi. Pellentesque at ipsum orci. Suspendisse faucibus metus nec purus tristique sodales');
                 $message -> setState('3');
@@ -55,10 +52,8 @@ class AppFixtures extends Fixture
                 $message -> setUser($user);
                 $message -> setGroupe($groupe);
                 $manager -> persist($message);
-
-               
             }   
-                $manager -> flush();
+            
+            $manager -> flush();
     }
-}
 }
