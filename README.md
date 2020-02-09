@@ -22,6 +22,7 @@ Ne pas oublier de modifier l'url de la base de données dans .env !
 
 > Eléa Carton
 
+> Classe B2A
 # Nos remarques : 
 
 Fixtures fonctionnelles
