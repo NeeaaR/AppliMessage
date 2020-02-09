@@ -11,13 +11,17 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 class GroupeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('name')
-            // ->add('photo')
+            -> add('file', FileType::class, array(
+                'required' => false
+            ))
             ->add('users', EntityType::class, array(
                 'class' => User::class, 
                 'choice_label' => 'username',

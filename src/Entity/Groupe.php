@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -27,6 +28,7 @@ class Groupe
      * @ORM\Column(type="string", length=255)
      */
     private $photo = 'default.jpg';
+    private $file;
 
     /**
      * @ORM\Column(type="date")
@@ -82,6 +84,33 @@ class Groupe
 
         return $this;
     }
+
+
+    public function getFile() {
+        return $this->file;
+    }
+
+    public function setFile(UploadedFile $file) {
+        $this->file = $file;
+        return $this;
+    }
+
+    public function fileUpload() {
+        $newName = $this ->renameFile($this ->file -> getClientOriginalName());
+        $this->photo = $newName;
+        $this->file->move(__DIR__ . '/../../public/photos/', $newName);
+    }
+
+    public function renameFile($nom) {
+        return 'photo' . time() . '_' . rand(1, 999) . '_' . $nom;
+    }
+
+    public function removeFile() {
+        if(file_exists(__DIR__ . '/../../public/photos/' . $this->photo) && $this -> photo!= 'default.jpg') {
+            unlink(__DIR__ . '/../../public/photos/' . $this->photo);
+        }
+    }
+
 
     public function getDate(): ?\DateTimeInterface
     {

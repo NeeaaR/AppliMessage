@@ -68,8 +68,12 @@ class GroupesController extends AbstractController
             $this -> addFlash('success', 'Le message ' . $message -> getID() . ' a bien été envoyé');   
         }
 
+        $repository = $this -> getDoctrine() -> getRepository(User::class);
+        $users = $repository -> findOneBy(['id' => $this -> getUser()]);
+
         return $this->render('groupes/show.html.twig', [
             'groupe' => $groupe,
+            'user' => $users,
             'MessageForm' => $form -> createView()
         ]);
     }
@@ -82,6 +86,8 @@ class GroupesController extends AbstractController
         $groupe = new Groupe;
 
         $form = $this -> createForm(GroupeType::class, $groupe);
+        $repository = $this -> getDoctrine() -> getRepository(User::class);
+        $users = $repository -> findOneBy(['id' => $this -> getUser()]);
 
         $form -> handleRequest($request);
 
@@ -94,12 +100,20 @@ class GroupesController extends AbstractController
                 
                 $userg -> addGroupe($groupe);
             }
-           $groupe -> addUser($this -> getUser()); 
+
+            if($groupe->getFile()) {
+                $groupe -> removeFile();
+                $groupe -> fileUpload();
+            }
+
+            $groupe -> addUser($this -> getUser()); 
+
            $manager -> flush(); 
            return $this -> redirectToRoute('home'); 
         }
         
         return $this -> render('groupes/groupe_form.html.twig', [
+            'user' => $users,
             'groupeForm' => $form -> createView()
         ]);
     }
