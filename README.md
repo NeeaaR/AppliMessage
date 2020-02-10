@@ -16,13 +16,13 @@ Ne pas oublier de modifier l'url de la base de données dans .env !
 
 # Membres du groupe :
 
-> Classe B2A
-
 - Alexis Morin
 
 - Yohan Stoeckle
 
 - Eléa Carton
+
+> Classe B2A
 
 # Nos remarques : 
 
