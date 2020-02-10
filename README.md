@@ -1,6 +1,6 @@
 # AppliMessage
 
-> git clone ...
+> git clone https://github.com/NeeaaR/AppliMessage.git
 
 > composer install
 
